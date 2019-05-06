@@ -1,4 +1,5 @@
 const form = document.querySelector('form');
+const API_URL = 'http://localhost:5000/mews';
 
 form.addEventListener('submit', function(e){
   e.preventDefault()
@@ -9,11 +10,17 @@ form.addEventListener('submit', function(e){
 
   if (name != '' && content != '') {
     loading.innerHTML = '<img src="./img/loading copy.gif"></img>'
-    let mew = {
+    const mew = {
       name,
       content
     }
-    console.log(mew)
+    fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify(mew),
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
   } else {
     alert('Please fill in all inputs')
   }
@@ -24,5 +31,5 @@ form.addEventListener('submit', function(e){
   setTimeout(function(){
     loading.innerHTML = '';
   }, 2000)
-
+  
 })
